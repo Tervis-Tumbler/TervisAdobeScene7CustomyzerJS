@@ -7,7 +7,8 @@ import {
     New_TervisAdobeScene7ArcedImageURL,
     New_TervisAdobeScene7WrapDecoration3TimesURL,
     New_TervisAdobeScene7ProductVignetteImageURL,
-    New_TervisAdobeScene7VirtualImageURL
+    New_TervisAdobeScene7VirtualImageURL,
+    New_TervisAdobeScene7DecorationProofImageURL
 } from '@tervis/tervisadobescene7js'
 
 import {
@@ -40,13 +41,14 @@ export async function New_TervisAdobeScene7CustomyzerVuMarkImageURL ({
 export async function New_TervisAdobeScene7CustomyzerColorInkImageURL ({
     $ProjectID,
     $Size,
-    $FormType
+    $FormType,
+    $AsScene7SrcValue
 }) {
     if ($FormType !== "SS") {
         var $ArtboardImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue: true})
-        return New_TervisAdobeScene7ArcedImageURL({$Size, $FormType, $DecalSourceValue: $ArtboardImageURLAsSrcValue})
+        return New_TervisAdobeScene7ArcedImageURL({$Size, $FormType, $DecalSourceValue: $ArtboardImageURLAsSrcValue, $AsScene7SrcValue})
     } else if ($FormType === "SS") {
-        return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID})
+        return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue})
     }
 }
 
@@ -169,50 +171,39 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     $AsScene7SrcValue
 }) {
     var $SizeAndFormTypeMetaData = await Get_TervisProductMetaDataUsingIndex({$Size, $FormType})
-    var $DecorationProofImageURLAsSourceValue
     
-    var $ProductVignetteImageURLAsSourceValue
+    var $DecorationProofWidthOnVirtual = $SizeAndFormTypeMetaData.DecorationProofWidthOnVirtual    
+    var $DecorationProofAspectRatio = $SizeAndFormTypeMetaData.PrintImageDimensions.Width / $SizeAndFormTypeMetaData.PrintImageDimensions.Height
+    var $DecorationProofHeightOnVirtual = Math.round($DecorationProofWidthOnVirtual / $DecorationProofAspectRatio)
+    
+    var $CustomyzerColorInkImageURLAsSourceValue = New_TervisAdobeScene7CustomyzerColorInkImageURL({
+        $Size,
+        $FormType,
+        $ProjectID,
+        $AsScene7SrcValue: true
+    })
 
-    if (!$DecorationProofImageURLAsSourceValue) {
-        var $DecorationProofWidthOnVirtual = $SizeAndFormTypeMetaData.DecorationProofWidthOnVirtual    
-        var $DecorationProofAspectRatio = $SizeAndFormTypeMetaData.PrintImageDimensions.Width / $SizeAndFormTypeMetaData.PrintImageDimensions.Height
-        var $DecorationProofHeightOnVirtual = Math.round($DecorationProofWidthOnVirtual / $DecorationProofAspectRatio)
-        
-        if ($FormType !== "SS") {
-
-            // await New_TervisAdobeScene7ProofImageURL ({
-            //     $DecorationImageURLAsSourceValue: ,
-            //     $Size,
-            //     $FormType,
-            //     $Width: $DecorationProofWidthOnVirtual,
-            //     $Height: $DecorationProofHeightOnVirtual,
-            //     $AsScene7SrcValue: true,
-            //     $IncludeDiecutterCalibrationLine: true
-            // })
-            
-            // New_TervisAdobeScene7DecorationProofImageURL
-            $DecorationProofImageURLAsSourceValue = await New_TervisAdobeScene7ArcedProofImageURL({
-                $ProjectID,
-                $Size,
-                $FormType,
-                $Width: $DecorationProofWidthOnVirtual,
-                $Height: $DecorationProofHeightOnVirtual,
-                $AsScene7SrcValue: true,
-                $IncludeDiecutterCalibrationLine: true
-            })
-        } else {
-            $DecorationProofImageURLAsSourceValue = New_TervisAdobeScene7CustomyzerArtboardProofImageURL({
-                $ProjectID,
-                $Width: $DecorationProofWidthOnVirtual,
-                $Height: $DecorationProofHeightOnVirtual,
-                $AsScene7SrcValue: true
-            })
-        }
+    var $ArcedDecorationAndIncludeDieCutterCalibrationLine
+    if ($FormType !== "SS") {
+        $ArcedDecorationAndIncludeDieCutterCalibrationLine = true
+    } else {
+        $ArcedDecorationAndIncludeDieCutterCalibrationLine = false
     }
+
+    var $DecorationProofImageURLAsSourceValue = New_TervisAdobeScene7DecorationProofImageURL({
+        $DecorationImageURLAsSourceValue: $CustomyzerColorInkImageURLAsSourceValue,
+        $ArcedDecoration: $ArcedDecorationAndIncludeDieCutterCalibrationLine,
+        $Size,
+        $FormType,
+        $IncludeDiecutterCalibrationLine: $ArcedDecorationAndIncludeDieCutterCalibrationLine,
+        $Width: $DecorationProofWidthOnVirtual,
+        $Height: $DecorationProofHeightOnVirtual,
+        $AsScene7SrcValue: true
+    })
 
     var $ProductVignetteImageWidthOnVirtual = 1079
     var $ProductVignetteImageHeightOnVirtual = 949
-    $ProductVignetteImageURLAsSourceValue = await New_TervisAdobeScene7CustomyzerProjectProductVignetteImageURL({
+    var $ProductVignetteImageURLAsSourceValue = await New_TervisAdobeScene7CustomyzerProjectProductVignetteImageURL({
         $ProjectID,
         $Size,
         $FormType,
