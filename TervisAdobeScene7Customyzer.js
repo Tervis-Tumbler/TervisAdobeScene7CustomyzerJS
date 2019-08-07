@@ -210,15 +210,15 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
         }
     }
 
-    var $ProductVignetteImageWidth = 1079
-    var $ProductVignetteImageHeight = 949
+    var $ProductVignetteImageWidthOnVirtual = 1079
+    var $ProductVignetteImageHeightOnVirtual = 949
     $ProductVignetteImageURLAsSourceValue = await New_TervisAdobeScene7CustomyzerProjectProductVignetteImageURL({
         $ProjectID,
         $Size,
         $FormType,
         $DecorationPositionXValue: $ProductVignetteDecorationPositionXValue,
-        $Width: $ProductVignetteImageWidth,
-        $Height: $ProductVignetteImageHeight,
+        $Width: $ProductVignetteImageWidthOnVirtual,
+        $Height: $ProductVignetteImageHeightOnVirtual,
         $AsScene7SrcValue: true
     })
 
