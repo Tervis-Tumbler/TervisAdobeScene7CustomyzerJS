@@ -4,7 +4,10 @@ import {
 
 import {
     New_TervisAdobeScene7URL,
-    New_TervisAdobeScene7ArcedImageURL
+    New_TervisAdobeScene7ArcedImageURL,
+    New_TervisAdobeScene7WrapDecoration3TimesURL,
+    New_TervisAdobeScene7ProductVirtualURL,
+    New_TervisAdobeScene7VirtualImageURL
 } from '@tervis/tervisadobescene7js'
 
 import {
@@ -186,6 +189,8 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
             //     $AsScene7SrcValue: true,
             //     $IncludeDiecutterCalibrationLine: true
             // })
+            
+            // New_TervisAdobeScene7DecorationProofImageURL
             $DecorationProofImageURLAsSourceValue = await New_TervisAdobeScene7ArcedProofImageURL({
                 $ProjectID,
                 $Size,
