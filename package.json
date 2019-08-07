@@ -1,0 +1,11 @@
+{
+  "name": "@tervis/tervisadobescene7customyzerjs",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "TervisAdobeScene7Customyzer.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tervis-Tumbler/TervisAdobeScene7CustomyzerJS"
+  },
+  "license": "MIT"
+}
