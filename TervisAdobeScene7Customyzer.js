@@ -6,7 +6,7 @@ import {
     New_TervisAdobeScene7URL,
     New_TervisAdobeScene7ArcedImageURL,
     New_TervisAdobeScene7WrapDecoration3TimesURL,
-    New_TervisAdobeScene7ProductVirtualURL,
+    New_TervisAdobeScene7ProductVignetteImageURL,
     New_TervisAdobeScene7VirtualImageURL
 } from '@tervis/tervisadobescene7js'
 
@@ -165,13 +165,13 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     $ProjectID,
     $Size,
     $FormType,
-    $ProductVirtualDecorationPositionXValue,
+    $ProductVignetteDecorationPositionXValue,
     $AsScene7SrcValue
 }) {
     var $SizeAndFormTypeMetaData = await Get_TervisProductMetaDataUsingIndex({$Size, $FormType})
     var $DecorationProofImageURLAsSourceValue
     
-    var $ProductVirtualURLAsSourceValue
+    var $ProductVignetteImageURLAsSourceValue
 
     if (!$DecorationProofImageURLAsSourceValue) {
         var $DecorationProofWidthOnVirtual = $SizeAndFormTypeMetaData.DecorationProofWidthOnVirtual    
@@ -210,31 +210,29 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
         }
     }
 
-    if (!$ProductVirtualURLAsSourceValue) {
-        var $ProductVirtualWidth = 1079
-        var $ProductVirtualHeight = 949
-        $ProductVirtualURLAsSourceValue = await New_TervisAdobeScene7CustomyzerProjectProductVirtualURL({
-            $ProjectID,
-            $Size,
-            $FormType,
-            $DecorationPositionXValue: $ProductVirtualDecorationPositionXValue,
-            $Width: $ProductVirtualWidth,
-            $Height: $ProductVirtualHeight,
-            $AsScene7SrcValue: true
-        })
-    }
+    var $ProductVignetteImageWidth = 1079
+    var $ProductVignetteImageHeight = 949
+    $ProductVignetteImageURLAsSourceValue = await New_TervisAdobeScene7CustomyzerProjectProductVignetteImageURL({
+        $ProjectID,
+        $Size,
+        $FormType,
+        $DecorationPositionXValue: $ProductVignetteDecorationPositionXValue,
+        $Width: $ProductVignetteImageWidth,
+        $Height: $ProductVignetteImageHeight,
+        $AsScene7SrcValue: true
+    })
 
     return await New_TervisAdobeScene7VirtualImageURL({
         $Size,
         $FormType,
         $DecorationProofImageURLAsSourceValue,
-        $ProductVirtualURLAsSourceValue,
-        $ProductVirtualDecorationPositionXValue,
+        $ProductVignetteImageURLAsSourceValue,
+        // $ProductVignetteDecorationPositionXValue,
         $AsScene7SrcValue
     })
 }
 
-export async function New_TervisAdobeScene7CustomyzerProjectProductVirtualURL ({
+export async function New_TervisAdobeScene7CustomyzerProjectProductVignetteImageURL ({
     $ProjectID,
     $Size,
     $FormType,
@@ -281,7 +279,7 @@ export async function New_TervisAdobeScene7CustomyzerProjectProductVirtualURL ({
         $RepeatedImageSource
       })
 
-    var $ProductVirtualURL = New_TervisAdobeScene7ProductVirtualURL({
+    var $ProductVignetteImageURL = New_TervisAdobeScene7ProductVignetteImageURL({
         $Size,
         $FormType,
         $VignetteSuffix: 1,
@@ -294,5 +292,5 @@ export async function New_TervisAdobeScene7CustomyzerProjectProductVirtualURL ({
         $AsScene7SrcValue
     })
 
-    return $ProductVirtualURL
+    return $ProductVignetteImageURL
 }
