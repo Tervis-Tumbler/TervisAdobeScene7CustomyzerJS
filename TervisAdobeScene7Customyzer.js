@@ -177,15 +177,15 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
         
         if ($FormType !== "SS") {
 
-            await New_TervisAdobeScene7ProofImageURL ({
-                $DecorationImageURLAsSourceValue: ,
-                $Size,
-                $FormType,
-                $Width: $DecorationProofWidthOnVirtual,
-                $Height: $DecorationProofHeightOnVirtual,
-                $AsScene7SrcValue: true,
-                $IncludeDiecutterCalibrationLine: true
-            })
+            // await New_TervisAdobeScene7ProofImageURL ({
+            //     $DecorationImageURLAsSourceValue: ,
+            //     $Size,
+            //     $FormType,
+            //     $Width: $DecorationProofWidthOnVirtual,
+            //     $Height: $DecorationProofHeightOnVirtual,
+            //     $AsScene7SrcValue: true,
+            //     $IncludeDiecutterCalibrationLine: true
+            // })
             $DecorationProofImageURLAsSourceValue = await New_TervisAdobeScene7ArcedProofImageURL({
                 $ProjectID,
                 $Size,
