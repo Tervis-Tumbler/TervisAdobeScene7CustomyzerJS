@@ -42,11 +42,20 @@ export async function New_TervisAdobeScene7CustomyzerColorInkImageURL ({
     $ProjectID,
     $Size,
     $FormType,
+    $Width,
+    $Height,
     $AsScene7SrcValue
 }) {
     if ($FormType !== "SS") {
         var $ArtboardImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue: true})
-        return New_TervisAdobeScene7ArcedImageURL({$Size, $FormType, $DecalSourceValue: $ArtboardImageURLAsSrcValue, $AsScene7SrcValue})
+        return New_TervisAdobeScene7ArcedImageURL({
+            $Size,
+            $FormType,
+            $Width,
+            $Height,
+            $DecalSourceValue: $ArtboardImageURLAsSrcValue,
+            $AsScene7SrcValue
+        })
     } else if ($FormType === "SS") {
         return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue})
     }
@@ -180,6 +189,8 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
         $Size,
         $FormType,
         $ProjectID,
+        $Width: $DecorationProofWidthOnVirtual,
+        $Height: $DecorationProofHeightOnVirtual,
         $AsScene7SrcValue: true
     })
 
