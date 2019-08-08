@@ -41,6 +41,14 @@ export async function New_TervisAdobeScene7CustomyzerVuMarkImageURL ({
 export async function New_TervisAdobeScene7CustomyzerColorInkImageURL ({
     $ProjectID,
     $Size,
+    $FormType
+}) {
+    New_TervisAdobeScene7CustomyzerDecorationImageURL({$ProjectID, $Size, $FormType})
+}
+
+export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
+    $ProjectID,
+    $Size,
     $FormType,
     $Width,
     $Height,
@@ -185,7 +193,7 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     var $DecorationProofAspectRatio = $SizeAndFormTypeMetaData.PrintImageDimensions.Width / $SizeAndFormTypeMetaData.PrintImageDimensions.Height
     var $DecorationProofHeightOnVirtual = Math.round($DecorationProofWidthOnVirtual / $DecorationProofAspectRatio)
     
-    var $CustomyzerColorInkImageURLAsSourceValue = await New_TervisAdobeScene7CustomyzerColorInkImageURL({
+    var $DecorationImageURLAsSourceValue = await New_TervisAdobeScene7CustomyzerDecorationImageURL({
         $Size,
         $FormType,
         $ProjectID,
@@ -202,7 +210,7 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     }
 
     var $DecorationProofImageURLAsSourceValue = await New_TervisAdobeScene7DecorationProofImageURL({
-        $DecorationImageURLAsSourceValue: $CustomyzerColorInkImageURLAsSourceValue,
+        $DecorationImageURLAsSourceValue,
         $ArcedDecoration: $ArcedDecorationAndIncludeDieCutterCalibrationLine,
         $Size,
         $FormType,
