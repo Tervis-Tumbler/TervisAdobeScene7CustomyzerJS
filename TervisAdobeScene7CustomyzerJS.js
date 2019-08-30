@@ -43,7 +43,7 @@ export async function New_TervisAdobeScene7CustomyzerColorInkImageURL ({
     $Size,
     $FormType
 }) {
-    New_TervisAdobeScene7CustomyzerDecorationImageURL({$ProjectID, $Size, $FormType})
+    return New_TervisAdobeScene7CustomyzerDecorationImageURL({$ProjectID, $Size, $FormType})
 }
 
 export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
