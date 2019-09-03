@@ -40,44 +40,44 @@ export async function New_TervisAdobeScene7CustomyzerVuMarkImageURL ({
 
 export async function New_TervisAdobeScene7CustomyzerColorInkImageURL ({
     $ProjectID,
-    $Size,
-    $FormType
+    $ProductSize,
+    $ProductFormType
 }) {
-    return New_TervisAdobeScene7CustomyzerDecorationImageURL({$ProjectID, $Size, $FormType})
+    return New_TervisAdobeScene7CustomyzerDecorationImageURL({$ProjectID, $ProductSize, $ProductFormType})
 }
 
 export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
     $ProjectID,
-    $Size,
-    $FormType,
+    $ProductSize,
+    $ProductFormType,
     $Width,
     $Height,
     $AsScene7SrcValue
 }) {
-    if ($FormType !== "SS") {
+    if ($ProductFormType !== "SS") {
         var $ArtboardImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue: true})
         return New_TervisAdobeScene7ArcedImageURL({
-            $Size,
-            $FormType,
+            $ProductSize,
+            $ProductFormType,
             $Width,
             $Height,
             $DecalSourceValue: $ArtboardImageURLAsSrcValue,
             $AsScene7SrcValue
         })
-    } else if ($FormType === "SS") {
+    } else if ($ProductFormType === "SS") {
         return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue})
     }
 }
 
 export async function New_TervisAdobeScene7CustomyzerWhiteInkImageURL ({
     $ProjectID,
-    $Size,
-    $FormType,
+    $ProductSize,
+    $ProductFormType,
     $WhiteInkColorHex = "00A99C",
     $VuMarkID
 }) {
-    let $GetTemplateNameParameters = ({$Size, $FormType})
-    if (!$VuMarkID && $FormType !== "SS") {
+    let $GetTemplateNameParameters = ({$ProductSize, $ProductFormType})
+    if (!$VuMarkID && $ProductFormType !== "SS") {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
@@ -111,7 +111,7 @@ src=(
 &fmt=png,gray
 &quantize=adaptive,off,2,ffffff,${$WhiteInkColorHex}
 `.replace(/\s/g, "")
-    } else if ($VuMarkID && $FormType !== "SS") {
+    } else if ($VuMarkID && $ProductFormType !== "SS") {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
@@ -154,7 +154,7 @@ src=(
 &fmt=png,gray
 &quantize=adaptive,off,2,ffffff,${$WhiteInkColorHex}
 `.replace(/\s/g, "")
-    } else if (!$VuMarkID && $FormType === "SS") {
+    } else if (!$VuMarkID && $ProductFormType === "SS") {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
@@ -182,20 +182,20 @@ src=(
 
 export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     $ProjectID,
-    $Size,
-    $FormType,
+    $ProductSize,
+    $ProductFormType,
     $ProductVignetteDecorationPositionXValue,
     $AsScene7SrcValue
 }) {
-    var $SizeAndFormTypeMetaData = await Get_TervisProductMetaDataUsingIndex({$Size, $FormType})
+    var $SizeAndFormTypeMetaData = await Get_TervisProductMetaDataUsingIndex({$ProductSize, $ProductFormType})
     
     var $DecorationProofWidthOnVirtual = $SizeAndFormTypeMetaData.DecorationProofWidthOnVirtual    
     var $DecorationProofAspectRatio = $SizeAndFormTypeMetaData.PrintImageDimensions.Width / $SizeAndFormTypeMetaData.PrintImageDimensions.Height
     var $DecorationProofHeightOnVirtual = Math.round($DecorationProofWidthOnVirtual / $DecorationProofAspectRatio)
     
     var $DecorationImageURLAsSourceValue = await New_TervisAdobeScene7CustomyzerDecorationImageURL({
-        $Size,
-        $FormType,
+        $ProductSize,
+        $ProductFormType,
         $ProjectID,
         $Width: $DecorationProofWidthOnVirtual,
         $Height: $DecorationProofHeightOnVirtual,
@@ -203,7 +203,7 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     })
 
     var $ArcedDecorationAndIncludeDieCutterCalibrationLine
-    if ($FormType !== "SS") {
+    if ($ProductFormType !== "SS") {
         $ArcedDecorationAndIncludeDieCutterCalibrationLine = true
     } else {
         $ArcedDecorationAndIncludeDieCutterCalibrationLine = false
@@ -212,8 +212,8 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     var $DecorationProofImageURLAsSourceValue = await New_TervisAdobeScene7DecorationProofImageURL({
         $DecorationImageURLAsSourceValue,
         $ArcedDecoration: $ArcedDecorationAndIncludeDieCutterCalibrationLine,
-        $Size,
-        $FormType,
+        $ProductSize,
+        $ProductFormType,
         $IncludeDiecutterCalibrationLine: $ArcedDecorationAndIncludeDieCutterCalibrationLine,
         $Width: $DecorationProofWidthOnVirtual,
         $Height: $DecorationProofHeightOnVirtual,
@@ -224,8 +224,8 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     var $ProductVignetteImageHeightOnVirtual = 949
     var $ProductVignetteImageURLAsSourceValue = await New_TervisAdobeScene7CustomyzerProjectProductVignetteImageURL({
         $ProjectID,
-        $Size,
-        $FormType,
+        $ProductSize,
+        $ProductFormType,
         $DecorationPositionXValue: $ProductVignetteDecorationPositionXValue,
         $Width: $ProductVignetteImageWidthOnVirtual,
         $Height: $ProductVignetteImageHeightOnVirtual,
@@ -233,8 +233,8 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
     })
 
     return await New_TervisAdobeScene7VirtualImageURL({
-        $Size,
-        $FormType,
+        $ProductSize,
+        $ProductFormType,
         $DecorationProofImageURLAsSourceValue,
         $ProductVignetteImageURLAsSourceValue,
         // $ProductVignetteDecorationPositionXValue,
@@ -244,8 +244,8 @@ export async function New_TervisAdobeScene7CustomyzerVirtualImageURL ({
 
 export async function New_TervisAdobeScene7CustomyzerProjectProductVignetteImageURL ({
     $ProjectID,
-    $Size,
-    $FormType,
+    $ProductSize,
+    $ProductFormType,
     $DecorationPositionXValue,
     $Width,
     $Height,
@@ -256,12 +256,12 @@ export async function New_TervisAdobeScene7CustomyzerProjectProductVignetteImage
         "MAIN/GLARE"
     ]
     var $DecorationType
-    if ($FormType === "SS") {
+    if ($ProductFormType === "SS") {
         $ElementPathsToShow.push(`MAIN/OUTER/SMOOTH/SS1`)
         $ElementPathsToShow.push(`MAIN/INNER/SMOOTH/SS1`)
         $DecorationType = "DPT"
     } else {
-        if ($FormType !== "WAV") {
+        if ($ProductFormType !== "WAV") {
             $ElementPathsToShow.push(`MAIN/OUTER/SMOOTH/CL1`)
         } else {
             $ElementPathsToShow.push(`MAIN/OUTER/WAVY/CL1`)
@@ -270,11 +270,11 @@ export async function New_TervisAdobeScene7CustomyzerProjectProductVignetteImage
         $DecorationType = "WRA"
     }
 
-    if ($FormType === "SIP") {
+    if ($ProductFormType === "SIP") {
         $ElementPathsToShow.push(`MAIN/ACCESSORIES/LIDSIP/GY3`)
     } 
     
-    if (($FormType === "SS" && $Size === 24) || ($FormType === "WB")) {
+    if (($ProductFormType === "SS" && $ProductSize === 24) || ($ProductFormType === "WB")) {
         $ElementPathsToShow.push(`MAIN/ACCESSORIES/LIDWB/GY1`)
     }
 
@@ -282,16 +282,16 @@ export async function New_TervisAdobeScene7CustomyzerProjectProductVignetteImage
     var $RepeatedImageSource = New_TervisAdobeScene7URL({$AsScene7SrcValue: true, $ExternalURL: $ArtobardImageURL})
     
     var $DecorationSrc = New_TervisAdobeScene7WrapDecoration3TimesURL({
-        $Size,
-        $FormType,
+        $ProductSize,
+        $ProductFormType,
         $AsScene7SrcValue: true,
         $DecorationType,
         $RepeatedImageSource
       })
 
     var $ProductVignetteImageURL = New_TervisAdobeScene7ProductVignetteImageURL({
-        $Size,
-        $FormType,
+        $ProductSize,
+        $ProductFormType,
         $VignetteSuffix: 1,
         $DecorationType,
         $DecorationSrc,
