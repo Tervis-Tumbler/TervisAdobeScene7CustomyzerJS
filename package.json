@@ -7,5 +7,10 @@
     "type": "git",
     "url": "https://github.com/Tervis-Tumbler/TervisAdobeScene7CustomyzerJS"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@tervis/adobescene7js": "^0.1.0",
+    "@tervis/tervisadobescene7js": "^0.1.0",
+    "@tervis/tervisproductmetadata": "^0.1.0"
+  }
 }
