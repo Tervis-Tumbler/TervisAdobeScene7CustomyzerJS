@@ -33,38 +33,80 @@ export function New_TervisAdobeScene7CustomyzerArtboardImageURL ({
 
 export async function New_TervisAdobeScene7CustomyzerVuMarkImageURL ({
     $ProjectID,
-    $VuMarkID
+    $VuMarkID,
+    $Width,
+    $Height,
+    $AsScene7SrcValue
 }) {
-    return `http://images.tervis.com/is/image/tervis/vum-${$ProjectID}-${$VuMarkID}?scl=1&fmt=png-alpha,rgb`
+    var $SizeStanza = New_AdobeScene7SizeStanza({$Width, $Height})
+    var $RelativeURL = `
+        tervis/vum-${$ProjectID}-${$VuMarkID}
+        ${$SizeStanza ? `?${$SizeStanza}` : ""}
+    `
+    return New_TervisAdobeScene7URL({$Type: "ImageServer", $RelativeURL, $AsScene7SrcValue})
 }
 
 export async function New_TervisAdobeScene7CustomyzerColorInkImageURL ({
     $ProjectID,
     $ProductSize,
     $ProductFormType,
+    $VuMarkID,
     $AsScene7SrcValue
 }) {
-    return New_TervisAdobeScene7CustomyzerDecorationImageURL({$ProjectID, $ProductSize, $ProductFormType, $AsScene7SrcValue})
+    return New_TervisAdobeScene7CustomyzerDecorationImageURL({$ProjectID, $ProductSize, $ProductFormType, $AsScene7SrcValue, $VuMarkID})
 }
 
 export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
     $ProjectID,
     $ProductSize,
     $ProductFormType,
+    $VuMarkID,
     $Width,
     $Height,
     $AsScene7SrcValue
 }) {
     if ($ProductFormType !== "SS") {
         var $ArtboardImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue: true})
-        return New_TervisAdobeScene7ArcedImageURL({
-            $ProductSize,
-            $ProductFormType,
-            $Width,
-            $Height,
-            $DecalSourceValue: $ArtboardImageURLAsSrcValue,
-            $AsScene7SrcValue
-        })
+        if (!$VuMarkID) {
+            return New_TervisAdobeScene7ArcedImageURL({
+                $ProductSize,
+                $ProductFormType,
+                $Width,
+                $Height,
+                $DecalSourceValue: $ArtboardImageURLAsSrcValue,
+                $AsScene7SrcValue
+            })
+        } else {
+            var $ArcedImageURLAsSrcValue = New_TervisAdobeScene7ArcedImageURL({
+                $ProductSize,
+                $ProductFormType,
+                $Width,
+                $Height,
+                $DecalSourceValue: $ArtboardImageURLAsSrcValue,
+                $AsScene7SrcValue: true
+            })
+
+            var $VuMarkImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerVuMarkImageURL({
+                $ProjectID,
+                $VuMarkID,
+                $Width: 150,
+                $Height: 173,
+                $AsScene7SrcValue: true
+            })
+
+            var $ProductMetaData = await Get_TervisProductMetaDataUsingIndex({$ProductSize, $ProductFormType})
+
+            $RelativeURL = `
+                tervis?
+                &layer=0
+                &src=${$ArcedImageURLAsSrcValue}
+                &layer=1
+                &src=${$VuMarkImageURLAsSrcValue}
+                &pos=${$ProductMetaData.VuMarkScene7PositionRelativeToPrintImageDeminsionsCenterPoint.X},${$ProductMetaData.VuMarkScene7PositionRelativeToPrintImageDeminsionsCenterPoint.Y}
+            `
+
+            return New_TervisAdobeScene7URL({$Type: "ImageServer", $RelativeURL, $AsScene7SrcValue})
+        }
     } else if ($ProductFormType === "SS") {
         return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue})
     }
