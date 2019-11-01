@@ -42,7 +42,8 @@ export async function New_TervisAdobeScene7CustomyzerVuMarkImageURL ({
     var $RelativeURL = `
         tervis/vum-${$ProjectID}-${$VuMarkID}
         ${$SizeStanza ? `?${$SizeStanza}` : ""}
-    `
+    `.replace(/\s/g, "")
+    
     return New_TervisAdobeScene7URL({$Type: "ImageServer", $RelativeURL, $AsScene7SrcValue})
 }
 
@@ -68,7 +69,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
     if ($ProductFormType !== "SS") {
         var $ArtboardImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue: true})
         if (!$VuMarkID) {
-            return New_TervisAdobeScene7ArcedImageURL({
+            return await New_TervisAdobeScene7ArcedImageURL({
                 $ProductSize,
                 $ProductFormType,
                 $Width,
@@ -77,7 +78,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
                 $AsScene7SrcValue
             })
         } else {
-            var $ArcedImageURLAsSrcValue = New_TervisAdobeScene7ArcedImageURL({
+            var $ArcedImageURLAsSrcValue = await New_TervisAdobeScene7ArcedImageURL({
                 $ProductSize,
                 $ProductFormType,
                 $Width,
@@ -86,7 +87,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
                 $AsScene7SrcValue: true
             })
 
-            var $VuMarkImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerVuMarkImageURL({
+            var $VuMarkImageURLAsSrcValue = await New_TervisAdobeScene7CustomyzerVuMarkImageURL({
                 $ProjectID,
                 $VuMarkID,
                 $Width: 150,
@@ -103,7 +104,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
                 &layer=1
                 &src=${$VuMarkImageURLAsSrcValue}
                 &pos=${$ProductMetaData.VuMarkScene7PositionRelativeToPrintImageDeminsionsCenterPoint.X},${$ProductMetaData.VuMarkScene7PositionRelativeToPrintImageDeminsionsCenterPoint.Y}
-            `
+            `.replace(/\s/g, "")
 
             return New_TervisAdobeScene7URL({$Type: "ImageServer", $RelativeURL, $AsScene7SrcValue})
         }
