@@ -43,7 +43,7 @@ export async function New_TervisAdobeScene7CustomyzerVuMarkImageURL ({
         tervis/vum-${$ProjectID}-${$VuMarkID}
         ${$SizeStanza ? `?${$SizeStanza}` : ""}
     `.replace(/\s/g, "")
-    
+
     return New_TervisAdobeScene7URL({$Type: "ImageServer", $RelativeURL, $AsScene7SrcValue})
 }
 
@@ -97,7 +97,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
 
             var $ProductMetaData = await Get_TervisProductMetaDataUsingIndex({$ProductSize, $ProductFormType})
 
-            $RelativeURL = `
+            var $RelativeURL = `
                 tervis?
                 &layer=0
                 &src=${$ArcedImageURLAsSrcValue}
