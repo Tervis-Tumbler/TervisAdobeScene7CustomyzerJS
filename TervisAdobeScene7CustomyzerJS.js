@@ -52,9 +52,17 @@ export async function New_TervisAdobeScene7CustomyzerColorInkImageURL ({
     $ProductSize,
     $ProductFormType,
     $VuMarkID,
+    $Cache,
     $AsScene7SrcValue
 }) {
-    return New_TervisAdobeScene7CustomyzerDecorationImageURL({$ProjectID, $ProductSize, $ProductFormType, $AsScene7SrcValue, $VuMarkID})
+    return New_TervisAdobeScene7CustomyzerDecorationImageURL({
+        $ProjectID,
+        $ProductSize,
+        $ProductFormType,
+        $VuMarkID,
+        $Cache,
+        $AsScene7SrcValue
+    })
 }
 
 export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
@@ -64,6 +72,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
     $VuMarkID,
     $Width,
     $Height,
+    $Cache,
     $AsScene7SrcValue
 }) {
     if ($ProductFormType !== "SS") {
@@ -75,6 +84,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
                 $Width,
                 $Height,
                 $DecalSourceValue: $ArtboardImageURLAsSrcValue,
+                $Cache,
                 $AsScene7SrcValue
             })
         } else {
@@ -106,7 +116,12 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
                 &pos=${$ProductMetaData.VuMarkScene7PositionRelativeToPrintImageDeminsionsCenterPoint.X},${$ProductMetaData.VuMarkScene7PositionRelativeToPrintImageDeminsionsCenterPoint.Y}
             `.replace(/\s/g, "")
 
-            return New_TervisAdobeScene7URL({$Type: "ImageServer", $RelativeURL, $AsScene7SrcValue})
+            return New_TervisAdobeScene7URL({
+                $Type: "ImageServer",
+                $RelativeURL,
+                $Cache,
+                $AsScene7SrcValue
+            })
         }
     } else if ($ProductFormType === "SS") {
         return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue})
@@ -118,7 +133,8 @@ export async function New_TervisAdobeScene7CustomyzerWhiteInkImageURL ({
     $ProductSize,
     $ProductFormType,
     $WhiteInkColorHex = "00A99C",
-    $VuMarkID
+    $VuMarkID,
+    $Cache
 }) {
     let $GetTemplateNameParameters = ({$ProductSize, $ProductFormType})
     if (!$VuMarkID && $ProductFormType !== "SS") {
@@ -154,6 +170,7 @@ src=(
 &color=000000
 &fmt=png,gray
 &quantize=adaptive,off,2,ffffff,${$WhiteInkColorHex}
+${$Cache ? `&cache=${$Cache}` : ""}
 `.replace(/\s/g, "")
     } else if ($VuMarkID && $ProductFormType !== "SS") {
         return `
@@ -197,6 +214,7 @@ src=(
 &scl=1
 &fmt=png,gray
 &quantize=adaptive,off,2,ffffff,${$WhiteInkColorHex}
+${$Cache ? `&cache=${$Cache}` : ""}
 `.replace(/\s/g, "")
     } else if (!$VuMarkID && $ProductFormType === "SS") {
         return `
@@ -220,6 +238,7 @@ src=(
 &scl=1
 &cache=off
 &fmt=png,gray
+${$Cache ? `&cache=${$Cache}` : ""}
 `.replace(/\s/g, "")
     }
 }
