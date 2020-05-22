@@ -75,7 +75,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
     $Cache,
     $AsScene7SrcValue
 }) {
-    if ($ProductFormType !== "SS") {
+    if ($ProductFormType !== "SS" && $ProductFormType !== "WMB") {
         var $ArtboardImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue: true})
         if (!$VuMarkID) {
             return await New_TervisAdobeScene7ArcedImageURL({
@@ -123,7 +123,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
                 $AsScene7SrcValue
             })
         }
-    } else if ($ProductFormType === "SS") {
+    } else if ($ProductFormType === "SS" || $ProductFormType === "WMB") {
         return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue})
     }
 }
@@ -137,7 +137,7 @@ export async function New_TervisAdobeScene7CustomyzerWhiteInkImageURL ({
     $Cache
 }) {
     let $GetTemplateNameParameters = ({$ProductSize, $ProductFormType})
-    if (!$VuMarkID && $ProductFormType !== "SS") {
+    if (!$VuMarkID && $ProductFormType !== "SS" && $ProductFormType !== "WMB") {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
@@ -172,7 +172,7 @@ src=(
 &quantize=adaptive,off,2,ffffff,${$WhiteInkColorHex}
 ${$Cache ? `&cache=${$Cache}` : ""}
 `.replace(/\s/g, "")
-    } else if ($VuMarkID && $ProductFormType !== "SS") {
+    } else if ($VuMarkID && $ProductFormType !== "SS" && $ProductFormType !== "WMB") {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
@@ -216,7 +216,7 @@ src=(
 &quantize=adaptive,off,2,ffffff,${$WhiteInkColorHex}
 ${$Cache ? `&cache=${$Cache}` : ""}
 `.replace(/\s/g, "")
-    } else if (!$VuMarkID && $ProductFormType === "SS") {
+    } else if (!$VuMarkID && ($ProductFormType === "SS" || $ProductFormType === "WMB")) {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
