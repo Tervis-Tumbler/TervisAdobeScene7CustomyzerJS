@@ -16,6 +16,12 @@ import {
     Get_TervisProductMetaDataUsingIndex
 } from '@tervis/tervisproductmetadata'
 
+const $StainlessFormFactors = [
+    "SS",
+    "WMB",
+    "SMB"
+]
+
 export function New_TervisAdobeScene7CustomyzerArtboardImageURL ({
     $ProjectID,
     $Width,
@@ -75,7 +81,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
     $Cache,
     $AsScene7SrcValue
 }) {
-    if ($ProductFormType !== "SS" && $ProductFormType !== "WMB") {
+    if (!($StainlessFormFactors.includes($ProductFormType))) {
         var $ArtboardImageURLAsSrcValue = New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue: true})
         if (!$VuMarkID) {
             return await New_TervisAdobeScene7ArcedImageURL({
@@ -123,7 +129,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
                 $AsScene7SrcValue
             })
         }
-    } else if ($ProductFormType === "SS" || $ProductFormType === "WMB") {
+    } else if ($StainlessFormFactors.includes($ProductFormType)) {
         return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue})
     }
 }
@@ -137,7 +143,7 @@ export async function New_TervisAdobeScene7CustomyzerWhiteInkImageURL ({
     $Cache
 }) {
     let $GetTemplateNameParameters = ({$ProductSize, $ProductFormType})
-    if (!$VuMarkID && $ProductFormType !== "SS" && $ProductFormType !== "WMB") {
+    if (!$VuMarkID && !($StainlessFormFactors.includes($ProductFormType))) {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
@@ -172,7 +178,7 @@ src=(
 &quantize=adaptive,off,2,ffffff,${$WhiteInkColorHex}
 ${$Cache ? `&cache=${$Cache}` : ""}
 `.replace(/\s/g, "")
-    } else if ($VuMarkID && $ProductFormType !== "SS" && $ProductFormType !== "WMB") {
+    } else if ($VuMarkID && !($StainlessFormFactors.includes($ProductFormType))) {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
@@ -216,7 +222,7 @@ src=(
 &quantize=adaptive,off,2,ffffff,${$WhiteInkColorHex}
 ${$Cache ? `&cache=${$Cache}` : ""}
 `.replace(/\s/g, "")
-    } else if (!$VuMarkID && ($ProductFormType === "SS" || $ProductFormType === "WMB")) {
+    } else if (!$VuMarkID && $StainlessFormFactors.includes($ProductFormType)) {
         return `
 http://images.tervis.com/is/image/tervis?
 src=(
