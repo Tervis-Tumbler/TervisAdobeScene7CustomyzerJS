@@ -231,7 +231,7 @@ src=(
     &mask=is(
         tervisRender/${await Get_TervisProductImageTemplateName({ ...$GetTemplateNameParameters, $TemplateType: "Base"})}?
         .BG
-        &layer=5
+        &layer=100
         &anchor=0,0
         &src=is(
             tervis/prj-${$ProjectID}
