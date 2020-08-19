@@ -11,6 +11,6 @@
   "dependencies": {
     "@tervis/adobescene7js": "^0.1.8",
     "@tervis/tervisadobescene7js": "^0.1.94",
-    "@tervis/tervisproductmetadata": "^1.0.45"
+    "@tervis/tervisproductmetadata": "^1.0.46"
   }
 }
