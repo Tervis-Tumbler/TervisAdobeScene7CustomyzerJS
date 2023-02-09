@@ -374,3 +374,18 @@ export async function New_TervisAdobeScene7CustomyzerProjectProductVignetteImage
 
     return $ProductVignetteImageURL
 }
+
+// This generates a URL that points to a local web server that hosts the 
+// original CMYK versions of the background image. Preserves color accuracy
+// through the Customyzer process.
+export async function New_TervisAdobeScene7CustomyzerCMYKBackgroundImageURL ({
+    $ProductSize,
+    $ProductFormType,
+    $FanaticsFG,
+}) {
+    const baseUrl = "http://localhost:8180"
+
+    // May need different logic here as implementation extends
+    // past Fanatics.
+    return `${baseUrl}/${$ProductSize}${$ProductFormType}/${$FanaticsFG}.eps`
+}
