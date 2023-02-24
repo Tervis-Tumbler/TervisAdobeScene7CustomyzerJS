@@ -384,8 +384,20 @@ export async function New_TervisAdobeScene7CustomyzerCMYKBackgroundImageURL ({
     $FanaticsFG,
 }) {
     const baseUrl = "http://localhost:8180"
+    let $Extension;
+
+    switch ($ProductFormType) {
+        case "DWT":
+            $Extension = "ai";
+            break;
+        case "VIT":
+            $Extension = "eps";
+            break;
+        default:
+            break;
+    }
 
     // May need different logic here as implementation extends
     // past Fanatics.
-    return `${baseUrl}/${$ProductSize}${$ProductFormType}/${$FanaticsFG}.eps`
+    return `${baseUrl}/${$ProductSize}${$ProductFormType}/${$FanaticsFG}.${$Extension}`
 }
