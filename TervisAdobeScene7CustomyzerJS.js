@@ -27,7 +27,8 @@ export function New_TervisAdobeScene7CustomyzerArtboardImageURL ({
     $ProjectID,
     $Width,
     $Height,
-    $AsScene7SrcValue
+    $AsScene7SrcValue,
+    $Cache
 }) {
     var $SizeStanza = New_AdobeScene7SizeStanza({$Width, $Height})
     var $RelativeURL = `
@@ -35,7 +36,7 @@ export function New_TervisAdobeScene7CustomyzerArtboardImageURL ({
         ${$SizeStanza ? `?${$SizeStanza}` : ""}
     `.replace(/\s/g, "")
 
-    return New_TervisAdobeScene7URL({$Type: "ImageServer", $RelativeURL, $AsScene7SrcValue})
+    return New_TervisAdobeScene7URL({$Type: "ImageServer", $RelativeURL, $AsScene7SrcValue, $Cache})
 }
 
 export async function New_TervisAdobeScene7CustomyzerVuMarkImageURL ({
@@ -131,7 +132,7 @@ export async function New_TervisAdobeScene7CustomyzerDecorationImageURL ({
             })
         }
     } else if ($StainlessFormFactors.includes($ProductFormType)) {
-        return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue})
+        return New_TervisAdobeScene7CustomyzerArtboardImageURL({$ProjectID, $AsScene7SrcValue, $Cache})
     }
 }
 
