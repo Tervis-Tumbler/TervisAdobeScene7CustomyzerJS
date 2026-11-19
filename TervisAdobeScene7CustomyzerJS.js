@@ -22,6 +22,8 @@ const $StainlessFormFactors = [
     "SMB",
     "VIT",
     "VIB",
+    "SWG",
+    "TALL",
 ]
 
 export function New_TervisAdobeScene7CustomyzerArtboardImageURL ({
